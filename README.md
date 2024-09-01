@@ -1,6 +1,6 @@
 # [Control charts for monitoring zero inflated positive random variables]()
 
-This code code can be used to reproduce the two applications in the paper.
+This code can be used to reproduce the two applications in the paper.
 
 # Authors
 
