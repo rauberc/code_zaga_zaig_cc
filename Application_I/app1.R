@@ -5,13 +5,20 @@ rm(list = ls())
 library(gamlss)      # For generalized additive models for location, scale, and shape
 library(gamlss.dist) # For distributions used in gamlss
 library(KSgeneral)   # For Kolmogorov-Smirnov tests
+library(tseries)     # For time series 
 
 # Load the data from a text file and convert the date column to Date type
 data <- read.table("rain_2015.txt", header = TRUE)
 data$date <- as.Date(data$date)
 
-# Convert the vector Z into a time series object with a frequency of 12 (monthly data)
-Z_ts <- ts(data$rain, frequency = 365)
+# Calculate the number of rows to use (half of the dataset)
+n = floor(nrow(data)/2)
+
+# Extract the first half of the data
+Z <- data$rain[1:n]
+
+# Convert the vector Z into a time series object with a frequency of 365 (daily data)
+Z_ts <- ts(Z, frequency = 365)
 
 # Calculate the autocorrelation function (ACF) of the time series without plotting it
 acf_result <- acf(Z_ts, plot = FALSE, lag.max = 19)  # Analyze autocorrelation up to lag 19
@@ -20,25 +27,19 @@ acf_result$acf  # Display the calculated ACF values
 # Set the file for output and specify plot parameters
 postscript(file = "acf_app1.eps", family = "Times", horizontal=T, paper="letter")
 {
-par(mar=c(5.5, 5.5, 2.5, 2.5)) # Margins: c(bottom, left, top, right)
-par(mgp=c(3, 1, 0))  # Axis label positions: c(axis title, axis labels, axis line)
-
-# Plot the autocorrelation function (ACF) with 99% confidence intervals 
-plot(acf_result, ci = 0.99, main = "", cex.axis = 1.7, cex.lab = 1.7)
+  par(mar=c(5.5, 5.5, 2.5, 2.5)) # Margins: c(bottom, left, top, right)
+  par(mgp=c(3, 1, 0))  # Axis label positions: c(axis title, axis labels, axis line)
+  
+  # Plot the autocorrelation function (ACF) with 99% confidence intervals 
+  plot(acf_result, ci = 0.99, main = "", cex.axis = 1.7, cex.lab = 1.7)
 }
 # Close the graphics device 
 dev.off()
 
-# Calculate the number of rows to use (half of the filtered dataset)
-n = floor(nrow(data)/2)
-
-# Extract the first half of the rainfall data
-Z <- data$rain[1:n]
-
-# Plot the extracted data
+# Plot the data
 plot(Z)
 
-# Summary statistics and standard deviation of the extracted data
+# Summary statistics and standard deviation of the data
 summary(Z)
 sd(Z)
 
@@ -124,16 +125,18 @@ alpha <- 1/370
 # For ZAGA: Lower limit is 0, calculate the upper control limit
 LCL_zaga <- 0
 UCL_zaga <- qZAGA(1-alpha, mu_ZAGA, sigma_ZAGA, nu_ZAGA)
-round(UCL_zaga,2)
+UCL_zaga
 
 # For ZAIG: Lower limit is 0, calculate the upper control limit
 LCL_zaig <- 0
 UCL_zaig <- qZAIG(1-alpha, mu_ZAIG, sigma_ZAIG, nu_ZAIG)
-round(UCL_zaig,2)
+UCL_zaig
 
 # Identify outliers that exceed the ZAGA upper control limit
 out <- which(data$rain > UCL_zaga)
 out_zaga <- data$rain[out]
+out
+out_zaga
 
 # Create a control chart for the rainfall data
 
