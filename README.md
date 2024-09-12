@@ -18,15 +18,16 @@ Luiz M. A. Lima-Filho, Gislânia C. S. de Souza, Tatiene C. de Souza, Cristine R
 * cc_app1.eps: ZAGA control chart for the data
 * ecdf_ZAGA_app1.eps: empirical and fitted ZAGA distribution for the data
 * results_ARL_app1.txt: ARL performance of the ZAGA control chart for the data
+* *.pdf - images above in pdf
 
 ## Application II
 
-* EbroPPtsMonthly: precipitation data
 * app2.R: R code for reproducing application I
 * acf_app2.eps: ACF plot for the data
 * cc_app2.eps: ZAIG control chart for the data
 * ecdf_ZAIG_app2.eps: empirical and fitted ZAIG distribution for the data
 * results_ARL_app2.txt: ARL performance of the ZAIG control chart for the data
+* *.pdf - images above in pdf
 
 # Contact 
 
