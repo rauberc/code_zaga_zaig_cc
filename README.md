@@ -4,7 +4,7 @@ This code can be used to reproduce the two applications in the paper.
 
 # Authors
 
-Luiz M. A. Lima--Filho, Gislânia C. S. de Souza, Tatiene C. de Souza, Cristine Rauber, Tarciana L. Pereira
+Luiz M. A. Lima-Filho, Gislânia C. S. de Souza, Tatiene C. de Souza, Cristine Rauber, Tarciana L. Pereira
 
 # How to cite this work
 
